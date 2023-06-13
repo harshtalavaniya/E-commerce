@@ -12,7 +12,7 @@ router.post("/login",login);
 
 router.put("/updateprofile",auth,updateProfile);
 router.get("/getuserdetails",auth,getAllUserDetails);
-router.delete("/getuserdetails",auth,deleteAccount);
+router.delete("/deleteuser",auth,deleteAccount);
 // router.get('/h',auth,(req,res)=>{res.json({message:"hello"})})
 
 module.exports=router;
