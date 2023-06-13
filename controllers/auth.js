@@ -3,6 +3,7 @@ const OTP=require("../models/OTP");
 const otpGenerator=require("otp-generator");
 const mailSender=require("../utils/mailSender");
 const bcrypt=require('bcrypt');
+const Profile=require("../models/Profile")
 require("dotenv").config();
 
 
