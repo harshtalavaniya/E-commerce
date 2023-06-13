@@ -89,11 +89,17 @@ exports.signup=async(req,res)=>{
 		}
 
 		const hashedPassword =await bcrypt.hash(password,10);
+		const profileDetails=await Profile.create({
+			gender: null,
+			dateOfBirth: null,
+			address: null,
+			contactNumber: null,
+		})
 
 		const createUser= await User.create({firstName,
 			lastName,
 			email,
-			
+			additionalDetails:profileDetails._id,
 			password: hashedPassword,
 			accountType: accountType,
 			image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`
