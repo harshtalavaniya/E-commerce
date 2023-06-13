@@ -2,6 +2,7 @@ const User=require("../models/User");
 const OTP=require("../models/OTP");
 const otpGenerator=require("otp-generator");
 const mailSender=require("../utils/mailSender");
+const bcrypt=require('bcrypt');
 require("dotenv").config();
 
 
@@ -51,5 +52,66 @@ exports.sentOtp=async (req,res)=>{
 
 
     }
+};
+
+exports.signup=async(req,res)=>{
+	try{
+		//fetch data from req body
+		const {
+			firstName,lastName,email,password,confirmPassword,accountType,otp
+		}=req.body
+		//validation
+		if(!firstName || !lastName ||!email ||!password ||!confirmPassword ||!accountType  ||!otp){
+			return res.status(400).json({ success: false, error: error.message ,message:"all field are required"});
+
+		}
+		//password compaire
+		if(password!==confirmPassword){
+			return res.status(400).json({ success: false, error: error.message ,message:"Password are not matched"});
+		}
+		const checkemail=await User.findOne({email});
+		//email validation user exist or not
+		if(checkemail){
+			return res.status(400).json({ success: false, error: error.message ,message:"User are already registerd"});
+
+		};
+		const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
+		console.log(response);
+		if(response.length===0){
+			return res.status(400).json({ success: false, error: error.message ,message:"otp are invalid"});
+
+		}else if (otp !== response[0].otp) {
+			// Invalid OTP
+			return res.status(400).json({
+				success: false,
+				message: "The OTP is not valid",
+			});
+		}
+
+		const hashedPassword =await bcrypt.hash(password,10);
+
+		const createUser= await User.create({firstName,
+			lastName,
+			email,
+			
+			password: hashedPassword,
+			accountType: accountType,
+			image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`
+
+		});
+		await mailSender(email,"welcome to E-commerce App","Now you can start shopping ,Enjoy!")
+		return res.status(500).json({
+			 success: true,
+			 message:"New user created",
+			 data:createUser
+			 });
+
+
+
+	}catch(error){
+		console.log(error.message);
+		return res.status(500).json({ success: false, error: error.message });
+
+	}
 }
    
