@@ -49,3 +49,26 @@ exports.getAllUserDetails = async (req, res) => {
 		});
 	}
 };
+
+exports.deleteAccount=async (req,res)=>{
+    try{
+        const id=req.user.id;
+        const user=await User.findById(id);
+        const profile=User.findByIdAndDelete({_id:user.additionalDetails});
+        await User.findByIdAndDelete({_id:id});
+        res.status(200).json({
+
+            success: true,
+            message: "User deleted successfully",
+        });
+
+    }catch(error){
+        console.log(error);
+		res
+			.status(500)
+			.json({ success: false, message: "User Cannot be deleted successfully" });
+	
+
+    }
+    
+};
