@@ -1,5 +1,6 @@
 const Profile=require("../models/Profile");
 const User=require("../models/User");
+const mailSender = require("../utils/mailSender");
 
 exports.updateProfile=async (req,res)=>{
     try{
@@ -56,6 +57,7 @@ exports.deleteAccount=async (req,res)=>{
         const user=await User.findById(id);
         const profile=User.findByIdAndDelete({_id:user.additionalDetails});
         await User.findByIdAndDelete({_id:id});
+        await mailSender(user.email,"Account Deleter","you have delete account")
         res.status(200).json({
 
             success: true,
