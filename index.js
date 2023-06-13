@@ -2,6 +2,11 @@ const express=require("express");
 const app=express();
 const{dbConnect}=require("../E-commerce/config/database")
 const dotenv=require("dotenv");
+const cookieParser = require("cookie-parser");
+
+
+
+app.use(cookieParser());
 
 dotenv.config();
 const PORT=process.env.PORT ||5000;

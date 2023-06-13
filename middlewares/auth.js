@@ -2,14 +2,16 @@ const jwt=require("jsonwebtoken");
 require('dotenv').config();
 const User=require("../models/User");
 
+const cookieParser = require("cookie-parser");
+
 
 //auth
 exports.auth =async(req,res,next)=>{
     try{
         //extract token
-        const token=req.cookies.token 
-        || req.body.token 
-        || req.header("Authorisation").replace("Bearer ", "");
+        const token=req.cookies.token
+        // ||req.body.token 
+       ;
 
         if(!token){
             return res.status(401).json({
@@ -18,7 +20,7 @@ exports.auth =async(req,res,next)=>{
             });
         }
         try{
-            const decode=jwt.verify(token,process.env.JWT_SECRET);
+            let decode=jwt.verify(token,process.env.JWT_SECRET);
             req.user=decode;
 
         }catch(error){
