@@ -46,14 +46,6 @@ const productSchema=new mongoose.Schema({
         min: 0,
         max: 255
     },
-    rating: {
-        type: Number,
-        default: 0,
-    },
-    numReviews: {
-        type: Number,
-        default: 0,
-    },
     isFeatured: {
         type: Boolean,
         default: false,
@@ -61,6 +53,8 @@ const productSchema=new mongoose.Schema({
     dateCreated: {
         type: Date,
         default: Date.now,
-    },
+    }
 
-})
+});
+
+module.exports=mongoose.model('Product',productSchema);

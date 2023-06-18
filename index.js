@@ -13,10 +13,12 @@ const PORT=process.env.PORT ||5000;
 // const userRoutes=require("../E-commerce/routes/User")
 const userRoute=require("../E-commerce/routes/UserRoute")
 const CategoryRoutes=require("../E-commerce/routes/CategoryRoutes")
+const ProductRoutes=require("../E-commerce/routes/ProductRoute")
 app.use(express.json());
 // app.use(cookieParser());
 app.use("/api/v1", userRoute);
 app.use("/api/v1", CategoryRoutes);
+app.use("/api/v1", ProductRoutes);
 
 
 
