@@ -61,6 +61,12 @@ exports.updateCategory=async (req,res)=>{
     try{
         const {categoryName,description,categoryId}=req.body;
         if(!categoryId){
+            res.status(400).json({
+                sucess:true,
+                message:" catgory data not found",
+                data:categoryUpdate,
+    
+            })
     
         }
     
@@ -76,6 +82,14 @@ exports.updateCategory=async (req,res)=>{
         })
     
 
-    }catch(error)
+    }catch(error){
+        res.status(500).json({
+            sucess:false,
+            message:" catgory update error",
+            // data:categoryUpdate,
+
+        })
+
+    }
    
 }

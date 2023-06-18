@@ -7,3 +7,8 @@ const{auth,isUser,isSeller,isAdmin}=require("../middlewares/auth")
 
 router.post("/createcategory",auth,isAdmin,createCategory);
 router.get("/getallcategory",auth,getAllCategory);
+router.put("/updatecategory",auth,updateCategory);
+
+
+
+module.exports=router;
