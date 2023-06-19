@@ -16,17 +16,10 @@ const productSchema=new mongoose.Schema({
         type: String,
         required: true
     },
-    richDescription: {
+    productImage: {
         type: String,
-        default: ''
+       
     },
-    image: {
-        type: String,
-        default: ''
-    },
-    images: [{
-        type: String
-    }],
     brand: {
         type: String,
         default: ''
@@ -45,10 +38,6 @@ const productSchema=new mongoose.Schema({
         required: true,
         min: 0,
         max: 255
-    },
-    isFeatured: {
-        type: Boolean,
-        default: false,
     },
     dateCreated: {
         type: Date,

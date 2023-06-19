@@ -1,4 +1,4 @@
-const cloudinary=require("cloudinary").v2;
+const cloudinary=require('cloudinary').v2
 
 
 exports.uploadImageToCloudinary=async (file,folder,height,quality)=>{
@@ -11,5 +11,5 @@ exports.uploadImageToCloudinary=async (file,folder,height,quality)=>{
     }
     otpions.resource_type="auto";
 
-    return await cloudinary.uploder.uplode(file.tempFilePath,otpions)
+    return await cloudinary.uploader.upload(file.tempFilePath,otpions)
 };

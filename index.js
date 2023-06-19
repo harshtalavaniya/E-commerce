@@ -3,8 +3,13 @@ const app=express();
 const{dbConnect}=require("../E-commerce/config/database")
 const dotenv=require("dotenv");
 const cookieParser = require("cookie-parser");
-
-
+const fileUpload = require("express-fileupload");
+app.use(
+	fileUpload({
+		useTempFiles:true,
+		tempFileDir:"/tmp",
+	})
+)
 
 app.use(cookieParser());
 
